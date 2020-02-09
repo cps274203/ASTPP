@@ -37,8 +37,9 @@ Debian 8 Installation
     git config --global pull.rebase true
 
     #Clone freeswitch version 1.6 from git 
-    git clone -b v1.6.19 https://freeswitch.org/stash/scm/fs/freeswitch.git
+    git clone https://github.com/signalwire/freeswitch.git
     cd freeswitch
+    git checkout v1.10
     ./bootstrap.sh -j
 
 **3. Edit modules.conf**
@@ -48,6 +49,8 @@ Debian 8 Installation
     sed -i "s#\#mod_db#mod_db#g" /usr/local/src/freeswitch/modules.conf
     sed -i "s#\#applications/mod_voicemail#applications/mod_voicemail#g" /usr/local/src/freeswitch/modules.conf
     sed -i "s#\#event_handlers/mod_json_cdr#event_handlers/mod_json_cdr#g" /usr/local/src/freeswitch/modules.conf
+    
+    #comment signalwire
 
 .. note:: # add a module by removing '#' comment character at the beginning of the line 
           # remove a module by inserting the '#' comment character at the beginning of the line containing the name of 
