@@ -111,42 +111,6 @@ get_astpp_source ()
         git clone -b v4.0.1 https://github.com/iNextrix/ASTPP.git
 }
 
-#License Acceptence
-license_accept ()
-{
-        cd /usr/src
-        if [ $IS_ENTERPRISE = "True" ]; then
-                echo ""
-        fi
-        if [ $IS_ENTERPRISE = "False" ]; then
-                clear
-                echo "********************"
-                echo "License acceptance"
-                echo "********************"
-                if [ -f LICENSE ]; then
-                        more LICENSE
-                else
-                        wget --no-check-certificate -q -O GNU-AGPLv4.0.1.txt https://raw.githubusercontent.com/iNextrix/ASTPP/master/LICENSE
-                        more GNU-AGPLv4.0.1.txt
-                fi
-                echo "***"
-                echo "*** I agree to be bound by the terms of the license - [YES/NO]"
-                echo "*** " 
-                read ACCEPT
-                while [ "$ACCEPT" != "yes" ] && [ "$ACCEPT" != "Yes" ] && [ "$ACCEPT" != "YES" ] && [ "$ACCEPT" != "no" ] && [ "$ACCEPT" != "No" ] && [ "$ACCEPT" != "NO" ]; do
-                        echo "I agree to be bound by the terms of the license - [YES/NO]"
-                        read ACCEPT
-                done
-                if [ "$ACCEPT" != "yes" ] && [ "$ACCEPT" != "Yes" ] && [ "$ACCEPT" != "YES" ]; then
-                        echo "Ooops!!! License rejected!"
-                        LICENSE_VALID=False
-                        exit 0
-                else
-                        echo "Hey!!! Licence accepted!"
-                        LICENSE_VALID=True
-                fi
-        fi
-}
 
 #Install PHP
 install_php ()
@@ -246,7 +210,6 @@ get_user_response ()
                 echo "Server is behind NAT";
                 NAT="True"
         fi
-        curl --data "email=$EMAIL" --data "data=$NAT2" --data "type=Install" http://astppbilling.org/lib/
 }
 
 #Install ASTPP with dependencies
@@ -820,7 +783,6 @@ start_installation ()
 {
         get_linux_distribution
         install_prerequisties
-        license_accept
         get_astpp_source
         get_user_response
         install_mysql
